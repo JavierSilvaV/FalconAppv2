@@ -17,7 +17,7 @@ from .forms import ConctactoForm, ProductoForm, CategoriaForm, CustomUserCreatio
 def index(request):
     productos=Productos.objects.all()
     busqueda = request.POST.get("buscador")
-    product_list = Productos.objects.order_by('nombre')
+    product_list = Productos.objects.order_by('id')
     page = request.GET.get('page', 1)
 
     if busqueda:
@@ -52,7 +52,7 @@ def productoxCategoria(request, id):
         ).distinct()
 
     data = {'entity': lista_productos}
-    return render(request, 'index.html', data)
+    return render(request, 'categorias2.html', data)
 
 
 # views productos
@@ -64,6 +64,7 @@ def detalleProducto(request, id):
         'productosRelacionados': otrosProductos
     }
     return render(request, 'producto/detalle.html', data)
+
 
 @login_required(login_url='/login')
 def addProducto(request):
@@ -103,7 +104,7 @@ def addProductoDestacado(request):
 @login_required(login_url='/login')
 def listarProductos(request):
     busqueda = request.POST.get("buscador")
-    lista_productos = Productos.objects.order_by('nombre')
+    lista_productos = Productos.objects.order_by('id')
     page = request.GET.get('page', 1)
     if busqueda:
         lista_productos = Productos.objects.filter(
@@ -161,7 +162,7 @@ def devoluciones(request):
 # Views categorias
 @login_required(login_url='/login')
 def listCategorias(request):
-    lista_categorias = Categorias.objects.all().order_by('nombre')
+    lista_categorias = Categorias.objects.all().order_by('id')
     page = request.GET.get('page', 1)
 
     try:
