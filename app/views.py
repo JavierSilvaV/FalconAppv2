@@ -17,7 +17,7 @@ from .forms import ConctactoForm, ProductoForm, CategoriaForm, CustomUserCreatio
 def index(request):
     productos=Productos.objects.all()
     busqueda = request.POST.get("buscador")
-    product_list = Productos.objects.order_by('id')
+    product_list = Productos.objects.order_by('nombre')
     page = request.GET.get('page', 1)
 
     if busqueda:
@@ -39,6 +39,30 @@ def index(request):
     }
     return render(request, 'index.html', data)
 
+def busquedaProducto(request):
+    productos=Productos.objects.all()
+    busqueda = request.POST.get("buscador")
+    product_list = Productos.objects.order_by('id')
+    page = request.GET.get('page', 1)
+
+    if busqueda:
+        product_list = Productos.objects.filter(
+            Q(nombre__icontains = busqueda) |
+            Q(descripcion__icontains = busqueda)
+        ).distinct()
+    
+    try:
+        paginator = Paginator(product_list, 12)
+        product_list = paginator.page(page)
+    except:
+        raise Http404
+    
+    
+    data = {'entity': product_list,
+            'paginator': paginator,
+            'productos': productos
+    }
+    return render(request, 'busquedaproducto.html', data)    
 
 # Listar productos por categoria
 def productoxCategoria(request, id):

@@ -43,7 +43,7 @@
             <div class="container-fluid">
                 <!-- <a class="navbar-brand" href="/">Jaguarete Kaa</a> -->
                 <a class="navbar-brand" href="/">
-                    <img src="{% static 'app/img/Logo/falcon4.png' %}" alt="" width="90" height="84">
+                    <img src="{% static 'app/img/Logo/falcon4-removebg.png' %}" alt="" width="90" height="84">
                   </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -62,20 +62,7 @@
 
                         
     
-                        {% if user.is_staff %}
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/listarproductos">
-                                    Listado Productos
-                                </a>
-                        </li>
-    
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/categorias">
-                                    Listado Categorias
-                                </a>
-                        </li>
-    
-                        {% endif %}
+                        
     
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">
@@ -85,6 +72,21 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">
                                 Contacto
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page">
+                                <form class="d-flex d-md-inlne-block form-inline justify-content-end" method="POST" action="{% url 'tienda:busquedaproducto' %}">
+                                    {% csrf_token %}
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-1 small text-left" name="buscador" placeholder="Buscar..." value="{{ request.POST.buscador }}">
+                                        &nbsp;
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-info my-2 my-sm-0" type="submit"><i class="bi bi-search mr-sm-2"></i>Buscar</button>
+                                           
+                                        </div>
+                                    </div>
+                                </form>
                             </a>
                         </li>
                     </ul>
@@ -131,6 +133,30 @@
                 </div>
             </div>
         </nav>
+
+        {% if user.is_staff %}
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <!-- <a class="navbar-brand" href="/">Jaguarete Kaa</a> -->
+                
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/listarproductos">
+                                    Listado Productos
+                                </a>
+                        </li>
+    
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/categorias">
+                                    Listado Categorias
+                                </a>
+                        </li>                       
+                    </ul>   
+                </div>
+            </div>
+        </nav>
+        {% endif %}
                     
                                                         
         
