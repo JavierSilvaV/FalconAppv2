@@ -10,6 +10,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('categorias/', views.listCategorias, name='categorias'),
     path('marcas/', views.listMarcas, name='marcas'),
+    path('usuarios/', views.listUsuarios, name='usuarios'),
     
     
     
@@ -32,6 +33,12 @@ urlpatterns = [
     path('addmarca/', views.addMarca, name='addmarca'),
     path('editmarca/<id>/', views.modificarMarca, name='editmarca'),
     path('deleteMarca/<id>/', views.deleteMarca, name='deleteMarca'),
+    
+    path('addusuario/', views.addUsuario, name='addusuario'),
+    path('editusuario/<id>/', views.modificarUsuario, name='editusuario'),
+    path('deleteUsuario/<id>/', views.deleteUsuario, name='deleteUsuario'),
+    
+    path('editperfilusuario/<id>/', views.modificarPerfilUsuario, name='editperfilusuario'),
         
     # paths de autenticacion
     path('registrar/', views.registrar, name='registrar'),

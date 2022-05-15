@@ -106,7 +106,7 @@
                                 <b>Hola! @{{ user.username }}</b>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <li><a class="dropdown-item" href="#">Mi perfil</a></li>
+                                <li><a class="dropdown-item" href="{% url 'tienda:editperfilusuario' user.id %}">Mi perfil</a></li>
                             </div>
                             </div>
                         
@@ -162,7 +162,12 @@
                             <a class="nav-link active" aria-current="page" href="/marcas">
                                     Listado Marcas
                                 </a>
-                        </li>                        
+                        </li>     
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/usuarios">
+                                    Listado Usuarios
+                                </a>
+                        </li>                     
                     </ul>   
                 </div>
             </div>
