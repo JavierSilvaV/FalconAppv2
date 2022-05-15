@@ -10,7 +10,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.views.generic import ListView, CreateView
 from django.db.models import Q
-from .forms import ConctactoForm, ProductoForm, CategoriaForm, CustomUserCreationForm
+from .forms import ConctactoForm, ProductoForm, CategoriaForm, CustomUserCreationForm, MarcaForm
 
 
 # Create your views here.
@@ -76,7 +76,7 @@ def productoxCategoria(request, id):
         ).distinct()
 
     data = {'entity': lista_productos}
-    return render(request, 'categorias2.html', data)
+    return render(request, 'categorias.html', data)
 
 
 # views productos
@@ -200,7 +200,7 @@ def listCategorias(request):
             'paginator': paginator
             }
 
-    return render(request,'categorias.html', data)
+    return render(request,'listadocategorias.html', data)
 
 
 @login_required(login_url='/login')
@@ -245,6 +245,72 @@ def deleteCategoria(request, id):
     categoria.delete()
     messages.success(request, "Registro eliminado correctamente")
     return redirect(to="/categorias")
+
+
+#Views Marcas
+@login_required(login_url='/login')
+def listMarcas(request):
+    lista_marcas = Marcas.objects.all().order_by('id')
+    page = request.GET.get('page', 1)
+
+    try:
+        paginator = Paginator(lista_marcas, 10)
+        lista_marcas = paginator.page(page)
+    except:
+        raise Http404
+
+    data = {'entity': lista_marcas,
+            'title': 'LISTADO DE MARCAS',
+            'paginator': paginator
+            }
+
+    return render(request,'listadomarcas.html', data)
+
+
+@login_required(login_url='/login')
+def addMarca(request):
+    data = {
+        'form': MarcaForm()
+    }
+    if request.method == 'POST':
+        formulario = MarcaForm(data=request.POST)
+
+        if formulario.is_valid():
+            formulario.save()
+            messages.success(request, "Registro agregado correctamente")
+            return redirect(to="/marcas")
+        else:
+            data["form"] = formulario
+    return render(request, 'marca/agregar.html', data)
+
+
+@login_required(login_url='/login')
+def modificarMarca(request, id):
+    marca = get_object_or_404(Marcas, id=id)
+
+    data = {
+        'form': MarcaForm(instance=marca)
+    }
+    if request.method == 'POST':
+        formulario = MarcaForm(data=request.POST, instance=marca)
+        if formulario.is_valid():
+            formulario.save()
+            messages.success(request, "Registro modificado correctamente")
+            return redirect(to="/marcas")
+        else:
+            data["form"] = formulario
+
+    return render(request, 'marca/modificar.html', data)
+
+
+@login_required(login_url='/login')
+def deleteMarca(request, id):
+    marca = get_object_or_404(Marcas, id=id)
+    marca.delete()
+    messages.success(request, "Registro eliminado correctamente")
+    return redirect(to="/marcas")
+
+
 
 def contacto(request):
     data = {

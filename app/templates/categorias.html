@@ -1,50 +1,63 @@
 {% extends 'layouts/base.html' %} {% block content %}
-<div class="min-vh-100 d-flex flex-colum py-4">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 col-md-6 col-sm-4 animate__animated animate__backInRight animate__delay-0.4s">
-                <div class="card">
-                    <div class="card-header text-center font-weight-bold">
-                        {{ title }}
+<section class="py-2">
+    <div class="container px-4 px-lg-1 mt-2">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            {% if entity %} {% for producto in entity %}
+            
+            <div class="col my-3">
+                <div class="card h-100 text-center py-3">
+                    <!-- Product image-->
+                    
+                    {% if producto.imagen %}
+                    <img class="mx-auto d-block img-fluid" src="{{ producto.imagen.url }}" alt="producto" width="150px%" /> {% else %}
+                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="sinImagen" /> {% endif %}
+                    <!-- Product details-->
+                    
+                    {% load humanize %}
+                    <div class="card-body p-3">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">{{ producto.nombre }}</h5>
+                            <!-- Product price-->
+                            $ {{ producto.precio | intcomma }}
+                        </div>
                     </div>
-                    <div class="card-body  table-responsive">
-                        <div class="d-flex justify-content-end mb-2 mx-2">
-                            <a href="/addcategoria" class="btn btn-dark btn-sm pull-right" type="submit">
-                            Nueva Categoria
+                    
+                    <!-- Product actions-->
+                    <div class="card-footer p-2 pt-2 border-top-0 bg-transparent">
+                        <div class="text-center">
+                            <a class="btn btn-dark mt-auto" href="{% url 'tienda:detalleproducto' producto.id %}">Ver detalle</a> 
+                            
+                            {% if user.is_authenticated%}
+                            <a href="{% url 'tienda:addcart' producto.id %}" class="btn btn-primary mt-2" type="button">
+                                <i class="bi-cart-fill me-1"></i> Agregar al Carrito
                             </a>
+                            {% endif %}
+                            
+                            
+                            
                         </div>
-                        <table class="table table-condensed">
-                            <thead class="thead-dark">
-                                <tr class="text-center">
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nombre</th>
-                                    <th colspan="2">Opciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% load bootstrap_icons %} {% if entity %} {% for categoria in entity %}
-                                <tr>
-                                    <td>{{ categoria.id }}</td>
-                                    <td>{{ categoria.nombre }}</td>
-                                    <td colspan="2" class="text-center">
-                                        <a class="btn btn-secondary btn-sm" href="{% url 'tienda:editcategoria' categoria.id %}" type="button"><i class="fa fa-pencil"></i></a>
-                                        <a class="btn btn-danger btn-sm" href="{% url 'tienda:deleteCategoria' categoria.id %}" type="button"><i class="fa fa-trash"></i></a>
-                                    </td>
-                                </tr>
-                                {% endfor %} {% else %}
-                                <div class="text-center text-warning">
-                                    <h3> No existen Productos relacionados a esta categoria</h3>
-                                </div>
-                                {% endif %}
-                            </tbody>
-                        </table>
-                        <div>
-                            {% include 'paginator.html' %}
-                        </div>
+                        
                     </div>
+                    
                 </div>
+                
+                
             </div>
+            
+            {% endfor %} {% else %}
+            <div class="text-center text-warning">
+                <h3> No se encontraron Productos!!</h3>
+            </div>
+            {% endif %}
+            
+        </div>
+        
+
+        <div>
+            {% include 'paginator.html' %}
         </div>
     </div>
-</div>
+
+</section>
 {% endblock %}

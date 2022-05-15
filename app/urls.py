@@ -9,6 +9,7 @@ urlpatterns = [
     # paths menú
     path('', views.index, name='index'),
     path('categorias/', views.listCategorias, name='categorias'),
+    path('marcas/', views.listMarcas, name='marcas'),
     
     
     
@@ -27,6 +28,10 @@ urlpatterns = [
     path('addcategoria/', views.addCategoria, name='addcategoria'),
     path('editcategoria/<id>/', views.modificarCategoria, name='editcategoria'),
     path('deleteCategoria/<id>/', views.deleteCategoria, name='deleteCategoria'),
+    
+    path('addmarca/', views.addMarca, name='addmarca'),
+    path('editmarca/<id>/', views.modificarMarca, name='editmarca'),
+    path('deleteMarca/<id>/', views.deleteMarca, name='deleteMarca'),
         
     # paths de autenticacion
     path('registrar/', views.registrar, name='registrar'),

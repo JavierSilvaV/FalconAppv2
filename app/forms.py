@@ -1,5 +1,5 @@
 from django import forms
-from .models import Contacto, Productos, Categorias
+from .models import Contacto, Marcas, Productos, Categorias
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -27,6 +27,13 @@ class CategoriaForm(forms.ModelForm):
 
     class Meta:
         model = Categorias
+        fields = ["nombre"]
+        
+
+class MarcaForm(forms.ModelForm):
+    
+    class Meta:
+        model = Marcas
         fields = ["nombre"]
 
 

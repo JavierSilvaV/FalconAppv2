@@ -58,7 +58,7 @@
                             {% for categoria in categorias %}
                             <a class="dropdown-item" href="{% url 'tienda:productocategoria' categoria.id %}">{{categoria.nombre}}</a> {% endfor %}
                         </div>
-                    </div>
+                        </div>
 
                         
     
@@ -99,11 +99,17 @@
                         <!-- Si está autenticado mostrar -->
                         {% load humanize %}
                         
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">
+                        
+                        
+                        <div class="dropdown show">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <b>Hola! @{{ user.username }}</b>
                             </a>
-                        </li>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">Mi perfil</a></li>
+                            </div>
+                            </div>
+                        
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">
                                         Cerrar Sesión
@@ -151,7 +157,12 @@
                             <a class="nav-link active" aria-current="page" href="/categorias">
                                     Listado Categorias
                                 </a>
-                        </li>                       
+                        </li> 
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/marcas">
+                                    Listado Marcas
+                                </a>
+                        </li>                        
                     </ul>   
                 </div>
             </div>
@@ -193,7 +204,7 @@
             <div class="row text-center text-md-left">
     
                 <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-                    <h5 class="text-uppercase mb-4 font-weight-bold text-warning">Company Name</h5>
+                    <h5 class="text-uppercase mb-4 font-weight-bold text-warning">Falcon Store</h5>
                     <p>Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet,
               ital consectetur lorem ipsum dolor sit amet adipisicing elit.</p>
                     
@@ -295,6 +306,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 
     <!-- MESSAGES-->
     {% if messages %} {% for message in messages %}
