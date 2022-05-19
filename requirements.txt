@@ -1,0 +1,6 @@
+django
+Pillow
+django-crispy-forms
+django-bootstrap-icons
+mysql
+social-auth-app-django
