@@ -9,6 +9,8 @@ urlpatterns = [
     # paths menú
     path('', views.index, name='index'),
     path('categorias/', views.listCategorias, name='categorias'),
+    path('marcas/', views.listMarcas, name='marcas'),
+    path('usuarios/', views.listUsuarios, name='usuarios'),
     
     
     
@@ -16,8 +18,10 @@ urlpatterns = [
 
     path('producto/', views.detalleProducto, name='producto'),
     path('addproducto/', views.addProducto, name='addproducto'),
-    path('addproductodestacado/', views.addProductoDestacado, name='addproductodestacado'),
+    
     path('detalleproducto/<id>/', views.detalleProducto, name='detalleproducto'),
+    path('busquedaproducto', views.busquedaProducto, name='busquedaproducto'),
+    
     path('productocategoria/<id>/', views.productoxCategoria, name='productocategoria'),
     path('editproducto/<id>/', views.editarProducto, name='editproducto'),
     path('deleteProducto/<id>/', views.deleteProducto, name='deleteProducto'),
@@ -25,6 +29,16 @@ urlpatterns = [
     path('addcategoria/', views.addCategoria, name='addcategoria'),
     path('editcategoria/<id>/', views.modificarCategoria, name='editcategoria'),
     path('deleteCategoria/<id>/', views.deleteCategoria, name='deleteCategoria'),
+    
+    path('addmarca/', views.addMarca, name='addmarca'),
+    path('editmarca/<id>/', views.modificarMarca, name='editmarca'),
+    path('deleteMarca/<id>/', views.deleteMarca, name='deleteMarca'),
+    
+    path('addusuario/', views.addUsuario, name='addusuario'),
+    path('editusuario/<id>/', views.modificarUsuario, name='editusuario'),
+    path('deleteUsuario/<id>/', views.deleteUsuario, name='deleteUsuario'),
+    
+    path('editperfilusuario/<id>/', views.modificarPerfilUsuario, name='editperfilusuario'),
         
     # paths de autenticacion
     path('registrar/', views.registrar, name='registrar'),

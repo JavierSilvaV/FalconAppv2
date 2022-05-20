@@ -43,7 +43,7 @@
             <div class="container-fluid">
                 <!-- <a class="navbar-brand" href="/">Jaguarete Kaa</a> -->
                 <a class="navbar-brand" href="/">
-                    <img src="{% static 'app/img/Logo/falcon4.png' %}" alt="" width="90" height="84">
+                    <img src="{% static 'app/img/Logo/falcon4-removebg.png' %}" alt="" width="90" height="84">
                   </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -58,24 +58,11 @@
                             {% for categoria in categorias %}
                             <a class="dropdown-item" href="{% url 'tienda:productocategoria' categoria.id %}">{{categoria.nombre}}</a> {% endfor %}
                         </div>
-                    </div>
+                        </div>
 
                         
     
-                        {% if user.is_staff %}
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/listarproductos">
-                                    Listado Productos
-                                </a>
-                        </li>
-    
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/categorias">
-                                    Listado Categorias
-                                </a>
-                        </li>
-    
-                        {% endif %}
+                        
     
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">
@@ -85,6 +72,21 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">
                                 Contacto
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page">
+                                <form class="d-flex d-md-inlne-block form-inline justify-content-end" method="POST" action="{% url 'tienda:busquedaproducto' %}">
+                                    {% csrf_token %}
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-1 small text-left" name="buscador" placeholder="Buscar..." value="{{ request.POST.buscador }}">
+                                        &nbsp;
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-info my-2 my-sm-0" type="submit"><i class="bi bi-search mr-sm-2"></i>Buscar</button>
+                                           
+                                        </div>
+                                    </div>
+                                </form>
                             </a>
                         </li>
                     </ul>
@@ -97,11 +99,17 @@
                         <!-- Si está autenticado mostrar -->
                         {% load humanize %}
                         
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">
+                        
+                        
+                        <div class="dropdown show">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <b>Hola! @{{ user.username }}</b>
                             </a>
-                        </li>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="{% url 'tienda:editperfilusuario' user.id %}">Mi perfil</a></li>
+                            </div>
+                            </div>
+                        
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">
                                         Cerrar Sesión
@@ -131,6 +139,40 @@
                 </div>
             </div>
         </nav>
+
+        {% if user.is_staff %}
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <!-- <a class="navbar-brand" href="/">Jaguarete Kaa</a> -->
+                
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/listarproductos">
+                                    Listado Productos
+                                </a>
+                        </li>
+    
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/categorias">
+                                    Listado Categorias
+                                </a>
+                        </li> 
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/marcas">
+                                    Listado Marcas
+                                </a>
+                        </li>     
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/usuarios">
+                                    Listado Usuarios
+                                </a>
+                        </li>                     
+                    </ul>   
+                </div>
+            </div>
+        </nav>
+        {% endif %}
                     
                                                         
         
@@ -167,7 +209,7 @@
             <div class="row text-center text-md-left">
     
                 <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-                    <h5 class="text-uppercase mb-4 font-weight-bold text-warning">Company Name</h5>
+                    <h5 class="text-uppercase mb-4 font-weight-bold text-warning">Falcon Store</h5>
                     <p>Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet,
               ital consectetur lorem ipsum dolor sit amet adipisicing elit.</p>
                     
@@ -231,7 +273,7 @@
                 <div class="col-md-7 col-lg-8">
                     <p>	Copyright ©2020 All rights reserved by:
                         <a href="#" style="text-decoration: none;">
-                            <strong class="text-warning">The Providers</strong>
+                            <strong class="text-warning">The Prov</strong>
                         </a></p>
                     
                 </div>
@@ -269,6 +311,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 
     <!-- MESSAGES-->
     {% if messages %} {% for message in messages %}
