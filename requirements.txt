@@ -3,3 +3,18 @@ pip install django_bootstrap_icons
 pip install django-crispy-forms
 pip install social-auth-app-django
 pip install Pillow
+
+
+marca
+categoria
+productos
+contacto
+venta
+envio
+comuna
+provincia
+region
+metodo pago
+trabajador
+proveedores
+ingresos
