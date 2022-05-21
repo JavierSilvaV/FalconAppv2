@@ -31,26 +31,6 @@ class Marcas (models.Model):
 
 
 #modelo Productos
-class Productos(models.Model):
-    nombre = models.CharField(max_length=100)
-    imagen = models.ImageField(upload_to='productos', null=True)
-    descripcion = models.CharField(max_length=500)
-    precio = models.IntegerField()
-    stock = models.IntegerField(null=True, default=0)
-    categoria = models.ForeignKey(Categorias, on_delete=models.PROTECT)
-    marca = models.ForeignKey(Marcas, on_delete=models.PROTECT)
-    oferta = models.BooleanField(default=False)
-    videoid = models.CharField(max_length=100, null=True)
-    destacado= models.BooleanField()
-
-    def __str__(self):
-        return self.nombre
-
-    class Meta:
-        db_table = 'productos'
-        verbose_name = 'Producto'
-        verbose_name_plural = 'Productos'
-        ordering = ['id']
 
 
 
@@ -152,7 +132,7 @@ class Trabajador (models.Model):
     apellido_paterno= models.CharField(max_length=30) 
     apellido_materno= models.CharField(max_length=30)
     fecha_nacimiento= models.DateField()
-    telefono= models.IntegerField(max_length=9)
+    telefono= models.IntegerField()
     email= models.EmailField(max_length=50)
     usuario= models.CharField(max_length=20)
     password= models.BinaryField()
@@ -171,8 +151,8 @@ class Proveedor (models.Model):
     razon_social= models.CharField(max_length=150)
     sector_comercial= models.CharField(max_length=50)
     tipo_documento= models.CharField(max_length=50)
-    num_documento= models.IntegerField(max_length=11)
-    telefono= models.IntegerField(max_length=9)
+    num_documento= models.IntegerField()
+    telefono= models.IntegerField()
     email= models.EmailField(max_length=50)
     url= models.CharField(max_length=100)
     comuna= models.ForeignKey(Comuna, on_delete=models.PROTECT)
@@ -197,3 +177,56 @@ class Ingreso(models.Model):
         verbose_name = 'Ingreso'
         verbose_name_plural = 'Ingresos'
         ordering = ['fecha']
+        
+class Detalle_Ingreso(models.Model):
+    precio_compra= models.IntegerField() 
+    precio_venta= models.IntegerField() 
+    stock_inicial= models.IntegerField() 
+    stock_actual= models.IntegerField()
+    ingreso= models.ForeignKey(Ingreso, on_delete=models.PROTECT)
+    
+    def __str__(self):
+        return self.precio_compra
+    class Meta:
+        db_table = 'Detalle_Ingreso'
+        verbose_name = 'Detalle_Ingreso'
+        verbose_name_plural = 'Detalle_Ingresos'
+        ordering = ['precio_compra'] 
+
+class Productos(models.Model):
+    nombre = models.CharField(max_length=100)
+    imagen = models.ImageField(upload_to='productos', null=True)
+    descripcion = models.CharField(max_length=500)
+    precio = models.IntegerField()
+    stock = models.IntegerField(null=True, default=0)
+    categoria = models.ForeignKey(Categorias, on_delete=models.PROTECT)
+    marca = models.ForeignKey(Marcas, on_delete=models.PROTECT)
+    oferta = models.BooleanField(default=False)
+    videoid = models.CharField(max_length=100, null=True)
+    destacado= models.BooleanField()
+    detalle_ingreso= models.ForeignKey(Detalle_Ingreso, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.nombre
+
+    class Meta:
+        db_table = 'productos'
+        verbose_name = 'Producto'
+        verbose_name_plural = 'Productos'
+        ordering = ['id']
+        
+        
+class Carrito_Compras(models.Model):
+    cantidad= models.IntegerField()
+    subtotal= models.IntegerField()
+    cod_producto= models.IntegerField()
+    
+    def __str__(self):
+        return self.cantidad
+
+    class Meta:
+        db_table = 'Carrito_Compras'
+        verbose_name = 'Carrito_Compras'
+        verbose_name_plural = 'Carrito_Compras'
+        ordering = ['id']
+        
