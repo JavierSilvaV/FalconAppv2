@@ -16,4 +16,9 @@ class ProductoAdmin(admin.ModelAdmin):
 admin.site.register(Categorias)
 admin.site.register(Productos, ProductoAdmin)
 admin.site.register(Marcas)
-
+admin.site.register(Region)
+admin.site.register(Comuna)
+admin.site.register(Provincia)
+admin.site.register(Proveedor)
+admin.site.register(Ingreso)
+admin.site.register(Detalle_Ingreso)

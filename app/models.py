@@ -66,8 +66,8 @@ class Region (models.Model):
         return self.nombre_region
     class Meta:
         db_table = 'Region'
-        verbose_name = 'Nombre'
-        verbose_name_plural = 'Nombres'
+        verbose_name = 'Region'
+        verbose_name_plural = 'Regiones'
         ordering = ['nombre_region']
 
 
@@ -80,8 +80,8 @@ class Provincia (models.Model):
         return self.nombre_provincia
     class Meta:
         db_table = 'Provincia'
-        verbose_name = 'Nombre'
-        verbose_name_plural = 'Nombres'
+        verbose_name = 'Provincia'
+        verbose_name_plural = 'Provincias'
         ordering = ['nombre_provincia']
 
 
@@ -93,8 +93,8 @@ class Comuna(models.Model):
         return self.nombre_comuna
     class Meta:
         db_table = 'Comuna'
-        verbose_name = 'Nombre'
-        verbose_name_plural = 'Nombres'
+        verbose_name = 'Comuna'
+        verbose_name_plural = 'Comunas'
         ordering = ['nombre_comuna']
 
 
@@ -171,7 +171,7 @@ class Ingreso(models.Model):
     proveedor= models.ForeignKey(Proveedor, on_delete=models.PROTECT)
 
     def __str__(self):
-        return self.fecha
+        return self.proveedor.nombre
     class Meta:
         db_table = 'Ingreso'
         verbose_name = 'Ingreso'
@@ -186,7 +186,7 @@ class Detalle_Ingreso(models.Model):
     ingreso= models.ForeignKey(Ingreso, on_delete=models.PROTECT)
     
     def __str__(self):
-        return self.precio_compra
+        return self.ingreso.proveedor.nombre
     class Meta:
         db_table = 'Detalle_Ingreso'
         verbose_name = 'Detalle_Ingreso'
@@ -197,7 +197,7 @@ class Productos(models.Model):
     nombre = models.CharField(max_length=100)
     imagen = models.ImageField(upload_to='productos', null=True)
     descripcion = models.CharField(max_length=500)
-    precio = models.IntegerField()
+    precio = models.PositiveIntegerField()
     stock = models.IntegerField(null=True, default=0)
     categoria = models.ForeignKey(Categorias, on_delete=models.PROTECT)
     marca = models.ForeignKey(Marcas, on_delete=models.PROTECT)
