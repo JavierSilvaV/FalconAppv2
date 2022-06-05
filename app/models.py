@@ -61,6 +61,8 @@ class Metodo_Pago(models.Model):
 
 class Region (models.Model):
     nombre_region= models.CharField(max_length=50)
+    abreviatura = models.CharField(max_length=4)
+    capital = models.CharField(max_length=64)
 
     def __str__(self):
         return self.nombre_region
